@@ -63,4 +63,43 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error);
     }
 
+    // Excepciones por productos no encontrados en carrito
+    @ExceptionHandler(ProductoNoEncontradoEnCarritoException.class)
+    public ResponseEntity<ErrorDto> handleProductoNoEncontrado(ProductoNoEncontradoEnCarritoException ex, HttpServletRequest request) {
+        ErrorDto error = new ErrorDto(
+            HttpStatus.NOT_FOUND.value(),
+            "Producto no encontrado en el carrito",
+            ex.getMessage(),
+            request.getRequestURI(),
+            "ERR_404_Producto_No_Encontrado"
+        );
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+    }
+
+    // Excepción de la cuenta no pertenece al carrito
+    @ExceptionHandler(CarritoNoPerteneceALaCuentaException.class)
+    public ResponseEntity<ErrorDto> handleCarritoNoPerteneceALaCuenta(CarritoNoPerteneceALaCuentaException ex, HttpServletRequest request) {
+        ErrorDto error = new ErrorDto(
+            HttpStatus.FORBIDDEN.value(),
+            "Acceso denegado al carrito",
+            ex.getMessage(),
+            request.getRequestURI(),
+            "ERR_403_Carrito_No_Pertenece"
+        );
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(error);
+    }
+
+    // Excepción de no se encontro el carrito
+    @ExceptionHandler(CarritoNoEncontradoException.class)
+    public ResponseEntity<ErrorDto> handleCarritoNoEncontrado(CarritoNoEncontradoException ex, HttpServletRequest request) {
+        ErrorDto error = new ErrorDto(
+            HttpStatus.NOT_FOUND.value(),
+            "Carrito no encontrado",
+            ex.getMessage(),
+            request.getRequestURI(),
+            "ERR_404_Carrito_No_Encontrado"
+        );
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+    }
+
 }
