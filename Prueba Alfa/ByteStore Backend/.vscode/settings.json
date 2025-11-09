@@ -1,0 +1,14 @@
+{
+    "editor.formatOnSave": true,
+    "java.configuration.updateBuildConfiguration": "interactive",
+    "java.completion.imports.enabled": true,
+    "java.completion.imports.favorites": [
+        "org.springframework.stereotype",
+        "org.springframework.web.bind.annotation",
+        "org.springframework.http",
+        "org.springframework.beans.factory.annotation",
+        "org.springframework.boot.autoconfigure",
+        "org.springframework.boot",
+        "org.springframework.context.annotation"
+    ]
+}
