@@ -3,7 +3,7 @@ package com.bytestore.bytestore.model;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.math.BigDecimal;
+
 
 @Getter
 @Setter
@@ -25,6 +25,6 @@ public class DetCarrito {
     @Column(name = "cantProducto", nullable = false)
     private int cantProducto = 0;
 
-    @Column(name = "precioProducto", precision = 9, scale = 2, nullable = false)
-    private BigDecimal precioProducto;
+    @Column(name = "precioProducto", nullable = false)
+    private double precioProducto;
 }

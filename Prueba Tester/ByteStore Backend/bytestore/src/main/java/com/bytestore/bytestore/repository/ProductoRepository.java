@@ -25,4 +25,6 @@ public interface ProductoRepository extends JpaRepository<Producto, String> {
         @Param("formato") Byte formato
     );
 
+    Producto findByIdProducto(String idProducto);
+    
 }

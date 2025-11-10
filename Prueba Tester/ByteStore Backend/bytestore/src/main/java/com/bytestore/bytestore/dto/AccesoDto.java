@@ -21,4 +21,5 @@ public class AccesoDto {
     @NotBlank(message = "La contraseña no puede estar vacía")
     @Size(min = 8, max = 25, message = "Debe tener entre 8 y 25 caracteres")
     private String contrasena;
+    
 }

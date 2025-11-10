@@ -8,7 +8,9 @@ import com.bytestore.bytestore.dto.CambioContrasenaDto;
 import com.bytestore.bytestore.dto.CrearCuentaDto;
 import com.bytestore.bytestore.dto.EnvioCodigoDto;
 import com.bytestore.bytestore.dto.ExitoDto;
+import com.bytestore.bytestore.model.Carrito;
 import com.bytestore.bytestore.model.Cuenta;
+import com.bytestore.bytestore.service.CarritoService;
 import com.bytestore.bytestore.service.CuentaService;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -20,13 +22,15 @@ import jakarta.validation.Valid;
 public class CuentaController {
 
     private final CuentaService cuentaService;
+    private final CarritoService carritoService;
 
-    public CuentaController(CuentaService cuentaService) {
+    public CuentaController(CuentaService cuentaService, CarritoService carritoService) {
         this.cuentaService = cuentaService;
+        this.carritoService = carritoService;
     }
     
     @PostMapping("/crear")
-    public ResponseEntity<ExitoDto> crearCuenta(@Valid @RequestBody CrearCuentaDto crearCuentaDto,HttpServletRequest request) {
+    public ResponseEntity<ExitoDto> crearCuenta(@Valid @RequestBody CrearCuentaDto crearCuentaDto, HttpServletRequest request) {
         Cuenta cuenta = new Cuenta();
         cuenta.setCorreoCuenta(crearCuentaDto.getCorreoCuenta());
         cuenta.setContrasena(crearCuentaDto.getContrasena());
@@ -36,7 +40,11 @@ public class CuentaController {
         cuenta.setEstadoCuenta(true);
 
         cuentaService.registrarCuenta(cuenta);
-        cuentaService.enviarCredencialesPorCorreo(cuenta,contrasena);
+        cuentaService.enviarCredencialesPorCorreo(cuenta, contrasena);
+
+        Carrito carrito = new Carrito();
+        carrito.setNumCuenta(cuenta.getNumCuenta());
+        carritoService.crearCarrito(carrito);
 
         ExitoDto respuesta = new ExitoDto(
             201,

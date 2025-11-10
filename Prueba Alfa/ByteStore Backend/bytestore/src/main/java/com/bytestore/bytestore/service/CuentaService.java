@@ -46,21 +46,25 @@ public class CuentaService {
 
     // Asigar el número de cuenta
     public void asignarNoCuenta(Cuenta cuenta) {
-        LocalDateTime ahora = LocalDateTime.now();
+        String noCuenta;
+        do {
+            LocalDateTime ahora = LocalDateTime.now();
 
-        int dia = ahora.getDayOfMonth();
-        int mes = ahora.getMonthValue();
-        int hora = ahora.getHour();
-        int minuto = ahora.getMinute();
-        int noAleatorio = ThreadLocalRandom.current().nextInt(1, 100);
+            int dia = ahora.getDayOfMonth();
+            int mes = ahora.getMonthValue();
+            int hora = ahora.getHour();
+            int minuto = ahora.getMinute();
+            int noAleatorio = ThreadLocalRandom.current().nextInt(1, 100);
 
-        String diaStr = (dia < 10) ? "0" + dia : String.valueOf(dia);
-        String mesStr = (mes < 10) ? "0" + mes : String.valueOf(mes);
-        String horaStr = (hora < 10) ? "0" + hora : String.valueOf(hora);
-        String minutoStr = (minuto < 10) ? "0" + minuto : String.valueOf(minuto);
-        String noAleatorioStr = (noAleatorio < 10) ? "0" + noAleatorio : String.valueOf(noAleatorio);
+            String diaStr = (dia < 10) ? "0" + dia : String.valueOf(dia);
+            String mesStr = (mes < 10) ? "0" + mes : String.valueOf(mes);
+            String horaStr = (hora < 10) ? "0" + hora : String.valueOf(hora);
+            String minutoStr = (minuto < 10) ? "0" + minuto : String.valueOf(minuto);
+            String noAleatorioStr = (noAleatorio < 10) ? "0" + noAleatorio : String.valueOf(noAleatorio);
 
-        String noCuenta = horaStr + minutoStr + diaStr + mesStr + noAleatorioStr;
+            noCuenta = horaStr + minutoStr + diaStr + mesStr + noAleatorioStr;
+        } while (cuentaRepository.existsById(noCuenta));
+
         cuenta.setNumCuenta(noCuenta);
     }
 
