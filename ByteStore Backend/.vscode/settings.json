@@ -10,5 +10,6 @@
         "org.springframework.boot.autoconfigure",
         "org.springframework.boot",
         "org.springframework.context.annotation"
-    ]
+    ],
+    "java.compile.nullAnalysis.mode": "automatic"
 }
